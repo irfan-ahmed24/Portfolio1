@@ -22,7 +22,7 @@ export function Hero() {
 
             <Reveal delay={0.08}>
               <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl lg:text-6xl">
-                Hi, I’m{" "}
+                Hi, I'm{" "}
                 <span className="text-gradient">{portfolio.person.name}</span>
                 <span className="text-zinc-400"> — </span>
                 <span className="text-zinc-100">{portfolio.person.role}</span>
