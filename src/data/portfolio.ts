@@ -21,7 +21,7 @@ export const portfolio = {
   person: {
     name: 'Irfan Ahmed',
     role: 'Full‑Stack Web Developer',
-    location: 'Your City, Country',
+    location: 'Dhaka, Bangladesh',
     tagline:
       'I build modern, responsive web applications with clean UI, strong backend logic, and smooth user experiences.',
   },
@@ -38,6 +38,18 @@ export const portfolio = {
     paragraphs: [
       'I’m a developer who loves turning complex problems into delightful, polished user experiences. I care about performance, accessibility, and design systems.',
       'Recently I’ve been working with React, TypeScript, Tailwind, and motion-driven micro-interactions to create modern web apps that feel premium.',
+    ],
+    education: [
+      {
+        degree: 'Bachelor of CSE',
+        institute: 'IUBAT',
+        period: 'Running',
+      },
+      {
+        degree: 'HSC',
+        institute: 'Chandonbari Kamil Madrasha',
+        period: '2020-2022',
+      },
     ],
     stats: [
       { label: 'Years Experience', value: '2+' },
@@ -64,42 +76,47 @@ export const portfolio = {
     title: 'Projects',
     items: [
       {
-        title: 'Modern Dashboard',
+        title: 'Harmonious Pavlova',
         description:
-          'A responsive dashboard with charts, authentication, and real-time UI states.',
-        tags: ['React', 'TypeScript', 'Tailwind'],
-        href: '#',
+          'Live project deployed on Netlify.',
+        tags: ['Web App'],
+        href: 'https://harmonious-pavlova-c0d2ca.netlify.app/',
         github: '#',
         highlights: [
-          'Reusable components + design tokens',
-          'Accessible keyboard navigation',
-          'Optimized rendering and data loading',
+          'Netlify deployment',
         ],
       },
       {
-        title: 'E-commerce UI',
+        title: 'Electronic Products Store',
         description:
-          'High-conversion storefront UI with product search, filters, and smooth transitions.',
-        tags: ['React', 'Motion', 'UX'],
-        href: '#',
+          'Project overview and deployment on Netlify.',
+        tags: ['E-commerce'],
+        href: 'https://app.netlify.com/projects/electronic-products-store/overview',
         github: '#',
         highlights: [
-          'Motion-driven micro-interactions',
-          'Mobile-first responsive layout',
-          'Clean architecture and scalable patterns',
+          'Netlify project overview',
         ],
       },
       {
-        title: 'Portfolio V1',
+        title: 'Luminous Zabaione',
         description:
-          'A premium personal portfolio with sections, animations, and a polished visual identity.',
-        tags: ['Vite', 'Tailwind', 'Framer Motion'],
-        href: '#',
+          'Live project deployed on Netlify.',
+        tags: ['Web App'],
+        href: 'https://luminous-zabaione-1d6288.netlify.app/',
         github: '#',
         highlights: [
-          'Beautiful hero + subtle background effects',
-          'Component-driven sections',
-          'Fast load and smooth scrolling',
+          'Netlify deployment',
+        ],
+      },
+      {
+        title: 'Prostotimoncho',
+        description:
+          'Live project deployed on Netlify.',
+        tags: ['Web App'],
+        href: 'https://prostotimoncho.netlify.app/',
+        github: '#',
+        highlights: [
+          'Netlify deployment',
         ],
       },
     ] satisfies Project[],

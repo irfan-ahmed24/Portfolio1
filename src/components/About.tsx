@@ -1,7 +1,7 @@
-import { Container } from './Container'
-import { Reveal } from './Reveal'
-import { Section } from './Section'
-import { portfolio } from '../data/portfolio'
+import { Container } from "./Container";
+import { Reveal } from "./Reveal";
+import { Section } from "./Section";
+import { portfolio } from "../data/portfolio";
 
 export function About() {
   return (
@@ -33,12 +33,16 @@ export function About() {
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
                     >
                       <span className="text-sm text-zinc-300">{s.label}</span>
-                      <span className="text-sm font-semibold text-zinc-50">{s.value}</span>
+                      <span className="text-sm font-semibold text-zinc-50">
+                        {s.value}
+                      </span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-4 rounded-2xl border border-white/10 bg-linear-to-br from-indigo-500/10 via-transparent to-fuchsia-500/10 p-4">
-                  <p className="text-sm font-medium text-zinc-200">Principles</p>
+                  <p className="text-sm font-medium text-zinc-200">
+                    Principles
+                  </p>
                   <ul className="mt-2 space-y-2 text-sm text-zinc-300">
                     <li className="flex gap-2">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-300/80" />
@@ -54,12 +58,28 @@ export function About() {
                     </li>
                   </ul>
                 </div>
+
+                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-sm font-medium text-zinc-200">Education</p>
+                  <div className="mt-2 space-y-3">
+                    {portfolio.about.education.map((item) => (
+                      <div
+                        key={`${item.degree}-${item.institute}`}
+                        className="rounded-xl border border-white/10 bg-white/5 px-3 py-2"
+                      >
+                        <p className="text-sm font-semibold text-zinc-100">
+                          {item.degree} at {item.institute}
+                        </p>
+                        <p className="text-xs text-zinc-300">{item.period}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>
         </div>
       </Section>
     </Container>
-  )
+  );
 }
-
