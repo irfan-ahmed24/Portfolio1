@@ -119,6 +119,17 @@ export const portfolio = {
           'Netlify deployment',
         ],
       },
+            {
+        title: 'Textile Inventory Management System',
+        description:
+          'Live project deployed on Railway.',
+        tags: ['Web App'],
+        href: 'https://textile-management-system-production.up.railway.app/',
+        github: 'https://github.com/irfan-ahmed24/textile-management-system',
+        highlights: [
+          'Railway deployment',
+        ],
+      },
     ] satisfies Project[],
   },
   contact: {
