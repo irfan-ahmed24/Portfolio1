@@ -36,8 +36,8 @@ export const portfolio = {
   about: {
     title: 'About',
     paragraphs: [
-      'I’m a developer who loves turning complex problems into delightful, polished user experiences. I care about performance, accessibility, and design systems.',
-      'Recently I’ve been working with React, TypeScript, Tailwind, and motion-driven micro-interactions to create modern web apps that feel premium.',
+      'I’m a Full-Stack Developer who lives at the intersection of beautiful interfaces and robust architecture. I love turning complex logic into delightful, polished user experiences that feel fluid and premium.',
+      'On the frontend, I focus on performance, accessibility, and pixel-perfect design systems—brought to life using React, TypeScript, Tailwind CSS, and motion-driven micro-interactions. On the backend, I design clean, scalable, and secure systems using Laravel, Node.js, and PostgreSQL, ensuring that the engine under the hood runs as smoothly as the UI.',
     ],
     education: [
       {
@@ -46,15 +46,15 @@ export const portfolio = {
         period: 'Running',
       },
       {
-        degree: 'HSC',
+        degree: 'Alim (HSC)',
         institute: 'Chandonbari Kamil Madrasha',
         period: '2020-2022',
       },
     ],
     stats: [
-      { label: 'Years Experience', value: '2+' },
-      { label: 'Projects Shipped', value: '20+' },
-      { label: 'Focus', value: 'UI + DX' },
+      { label: 'Years Experience', value: '1+' },
+      { label: 'Projects Shipped', value: '5+' },
+      { label: 'Focus', value: 'UI + UX' },
     ],
   },
   skills: {
@@ -109,7 +109,7 @@ export const portfolio = {
         ],
       },
       {
-        title: 'Prostotimoncho',
+        title: 'Prostoti moncho',
         description:
           'Live project deployed on Netlify.',
         tags: ['Web App'],
