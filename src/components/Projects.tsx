@@ -3,19 +3,20 @@ import { FiArrowUpRight, FiGithub } from 'react-icons/fi'
 import { Container } from './Container'
 import { Reveal } from './Reveal'
 import { Section } from './Section'
-import { portfolio } from '../data/portfolio'
+import { usePortfolio } from '../context/usePortfolio'
 
 export function Projects() {
+  const { data: portfolio } = usePortfolio()
   return (
     <Container>
       <Section
         id="projects"
         eyebrow="Selected work"
-        title={portfolio.projects.title}
+        title="Projects"
         subtitle="A few projects that show my taste for UI, performance, and clean code."
       >
         <div className="grid gap-5 lg:grid-cols-3">
-          {portfolio.projects.items.map((p, idx) => (
+          {portfolio.projects.filter((p) => p.visible).sort((a, b) => a.order - b.order).map((p, idx) => (
             <Reveal key={p.title} delay={Math.min(0.35, idx * 0.06)}>
               <motion.article
                 whileHover={{ y: -6 }}
@@ -27,18 +28,18 @@ export function Projects() {
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="text-base font-semibold text-zinc-50">{p.title}</h3>
                     <div className="flex items-center gap-2">
-                      {p.github && (
+                      {p.githubUrl && p.githubUrl !== '#' && (
                         <a
-                          href={p.github}
+                          href={p.githubUrl}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-100 transition hover:bg-white/10"
                           aria-label={`${p.title} GitHub`}
                         >
                           <FiGithub />
                         </a>
                       )}
-                      {p.href && (
+                      {p.liveUrl && (
                         <a
-                          href={p.href}
+                          href={p.liveUrl}
                           className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/90 text-white transition hover:bg-indigo-500"
                           aria-label={`${p.title} Live link`}
                         >
@@ -51,7 +52,7 @@ export function Projects() {
                   <p className="mt-3 text-sm leading-relaxed text-zinc-300">{p.description}</p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
+                    {p.technologies.map((t) => (
                       <span
                         key={t}
                         className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs font-medium text-zinc-200"

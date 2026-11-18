@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FiDownload, FiMail, FiMenu, FiX } from "react-icons/fi";
 import { Container } from "./Container";
-import { portfolio } from "../data/portfolio";
+import { usePortfolio } from "../context/usePortfolio";
 import { openResume } from "../resume/openResume";
 
 function clamp01(n: number) {
@@ -10,6 +10,7 @@ function clamp01(n: number) {
 }
 
 export function Navbar() {
+  const { data: portfolio } = usePortfolio()
   const [open, setOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
@@ -59,7 +60,7 @@ export function Navbar() {
               />
             </span>
             <span className="hidden text-sm font-semibold tracking-tight text-zinc-50 sm:block">
-              {portfolio.person.name}
+              {portfolio.profile.name}
             </span>
           </a>
 
@@ -77,7 +78,7 @@ export function Navbar() {
 
           <div className="hidden items-center gap-2 md:flex">
             <a
-              href={`mailto:${portfolio.links.email}`}
+              href={`mailto:${portfolio.contact.email}`}
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-100 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60"
             >
               <FiMail />
@@ -85,7 +86,7 @@ export function Navbar() {
             </a>
             <button
               type="button"
-              onClick={openResume}
+              onClick={() => openResume(portfolio)}
               className="inline-flex items-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
             >
               <FiDownload />
@@ -145,7 +146,7 @@ export function Navbar() {
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <a
-                href={`mailto:${portfolio.links.email}`}
+                href={`mailto:${portfolio.contact.email}`}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-100 transition hover:bg-white/10"
               >
                 <FiMail />
@@ -155,7 +156,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => {
                   setOpen(false);
-                  openResume();
+                  openResume(portfolio);
                 }}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
               >

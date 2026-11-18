@@ -1,4 +1,4 @@
-import { portfolio } from '../data/portfolio'
+import type { PortfolioData } from '../types/portfolio'
 
 function escapeHtml(input: string) {
   return input
@@ -9,15 +9,15 @@ function escapeHtml(input: string) {
     .replaceAll("'", '&#039;')
 }
 
-function resumeHtml() {
-  const name = portfolio.person.name
-  const role = portfolio.person.role
-  const email = portfolio.links.email
-  const github = portfolio.links.socials.find((s) => s.label.toLowerCase() === 'github')?.href ?? ''
+function resumeHtml(portfolio: PortfolioData) {
+  const name = portfolio.profile.name
+  const role = portfolio.profile.role
+  const email = portfolio.contact.email
+  const github = portfolio.socialLinks.find((s) => s.label.toLowerCase() === 'github')?.href ?? ''
   const linkedin =
-    portfolio.links.socials.find((s) => s.label.toLowerCase() === 'linkedin')?.href ?? ''
+    portfolio.socialLinks.find((s) => s.label.toLowerCase() === 'linkedin')?.href ?? ''
 
-  const skills = portfolio.skills.items.map((s) => s.name)
+  const skills = portfolio.skills.map((s) => s.name)
 
   return `<!doctype html>
 <html lang="en">
@@ -203,7 +203,11 @@ function resumeHtml() {
 </html>`
 }
 
-export function openResume() {
+export function openResume(portfolio: PortfolioData) {
+  if (portfolio.resume.fileUrl) {
+    window.open(portfolio.resume.fileUrl, '_blank', 'noopener')
+    return
+  }
   const w = window.open('about:blank', '_blank');
   
   if (!w) {
@@ -212,6 +216,6 @@ export function openResume() {
   }
 
   w.document.open();
-  w.document.write(resumeHtml());
+  w.document.write(resumeHtml(portfolio));
   w.document.close();
 }

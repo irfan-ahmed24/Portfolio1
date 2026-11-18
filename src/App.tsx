@@ -1,6 +1,9 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { About, Background, Contact, Footer, Hero, Navbar, Projects, ScrollToTop, Skills } from './components'
+import { PortfolioProvider } from './context/PortfolioContext'
+import { AdminApp } from './admin/AdminApp'
 
-export default function App() {
+function PublicPortfolio() {
   return (
     <div className="scrollbar min-h-dvh">
       <Background />
@@ -25,5 +28,19 @@ export default function App() {
       <Footer />
       <ScrollToTop />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <PortfolioProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PublicPortfolio />} />
+          <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </PortfolioProvider>
   )
 }

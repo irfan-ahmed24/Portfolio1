@@ -4,15 +4,16 @@ import { useMemo, useState } from 'react'
 import { Container } from './Container'
 import { Reveal } from './Reveal'
 import { Section } from './Section'
-import { portfolio } from '../data/portfolio'
+import { usePortfolio } from '../context/usePortfolio'
 
 export function Contact() {
+  const { data: portfolio } = usePortfolio()
   const [name, setName] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
 
   const mailto = useMemo(() => {
-    const s = subject.trim() || `Hi ${portfolio.person.name}`
+    const s = subject.trim() || `Hi ${portfolio.profile.name}`
     const body = [
       message.trim(),
       '',
@@ -22,10 +23,10 @@ export function Contact() {
       .filter(Boolean)
       .join('\n')
 
-    return `mailto:${portfolio.links.email}?subject=${encodeURIComponent(
+    return `mailto:${portfolio.contact.email}?subject=${encodeURIComponent(
       s,
     )}&body=${encodeURIComponent(body)}`
-  }, [message, name, subject])
+  }, [message, name, subject, portfolio.contact.email, portfolio.profile.name])
 
   return (
     <Container>
@@ -46,11 +47,11 @@ export function Contact() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <FiMail />
-                    {portfolio.links.email}
+                    {portfolio.contact.email}
                   </span>
                   <FiArrowRight className="text-zinc-300" />
                 </a>
-                {portfolio.links.socials.map((s) => (
+                {portfolio.socialLinks.filter((s) => s.visible).map((s) => (
                   <a
                     key={s.label}
                     href={s.href}

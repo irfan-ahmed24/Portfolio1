@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Container } from './Container'
 import { Reveal } from './Reveal'
 import { Section } from './Section'
-import { portfolio } from '../data/portfolio'
+import { usePortfolio } from '../context/usePortfolio'
 
 const levelStyles: Record<string, string> = {
   Advanced:
@@ -14,16 +14,17 @@ const levelStyles: Record<string, string> = {
 }
 
 export function Skills() {
+  const { data: portfolio } = usePortfolio()
   return (
     <Container>
       <Section
         id="skills"
         eyebrow="Toolkit"
-        title={portfolio.skills.title}
+        title="Skills"
         subtitle="A snapshot of the technologies and strengths I use to ship quality UI."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {portfolio.skills.items.map((skill, idx) => (
+          {portfolio.skills.map((skill, idx) => (
             <Reveal key={skill.name} delay={Math.min(0.35, idx * 0.03)}>
               <motion.div
                 whileHover={{ y: -4 }}

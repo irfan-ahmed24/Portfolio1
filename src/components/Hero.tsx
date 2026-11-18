@@ -3,10 +3,12 @@ import { FiArrowRight, FiGithub, FiLinkedin } from "react-icons/fi";
 import { useState } from "react";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
-import { portfolio } from "../data/portfolio";
+import { usePortfolio } from "../context/usePortfolio";
 
 export function Hero() {
   const [photoOk, setPhotoOk] = useState(true);
+  const { data } = usePortfolio();
+  const portfolio = data;
 
   return (
     <section id="home" className="relative pt-28 sm:pt-32">
@@ -23,15 +25,15 @@ export function Hero() {
             <Reveal delay={0.08}>
               <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl lg:text-6xl">
                 Hi, I'm{" "}
-                <span className="text-gradient">{portfolio.person.name}</span>
+                <span className="text-gradient">{portfolio.profile.name}</span>
                 <span className="text-zinc-400"> — </span>
-                <span className="text-zinc-100">{portfolio.person.role}</span>
+                <span className="text-zinc-100">{portfolio.profile.role}</span>
               </h1>
             </Reveal>
 
             <Reveal delay={0.14}>
               <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-zinc-300 sm:text-lg">
-                {portfolio.person.tagline}
+                {portfolio.profile.tagline}
               </p>
             </Reveal>
 
@@ -52,14 +54,14 @@ export function Hero() {
                 </a>
                 <div className="ml-1 flex items-center gap-2">
                   <a
-                    href={portfolio.links.socials[0]?.href ?? "#"}
+                    href={portfolio.socialLinks.find((link) => link.visible)?.href ?? "#"}
                     className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-100 transition hover:-translate-y-0.5 hover:bg-white/10"
                     aria-label="GitHub"
                   >
                     <FiGithub />
                   </a>
                   <a
-                    href={portfolio.links.socials[1]?.href ?? "#"}
+                    href={portfolio.socialLinks.filter((link) => link.visible)[1]?.href ?? "#"}
                     className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-100 transition hover:-translate-y-0.5 hover:bg-white/10"
                     aria-label="LinkedIn"
                   >
@@ -72,7 +74,7 @@ export function Hero() {
             <Reveal delay={0.22}>
               <div className="mt-8 flex flex-wrap items-center gap-2 text-sm text-zinc-400">
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                  {portfolio.person.location}
+                  {portfolio.profile.location}
                 </span>
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
                   React • TypeScript • Tailwind
@@ -94,21 +96,21 @@ export function Hero() {
                   <div className="h-12 w-12 overflow-hidden rounded-2xl border border-white/10 bg-white/5 ring-soft">
                     {photoOk ? (
                       <img
-                        src="/irfan2.png"
-                        alt={portfolio.person.name}
+                        src={portfolio.profile.imageUrl || "/Picture/irfan2.jpeg"}
+                        alt={portfolio.profile.name}
                         className="h-full w-full object-cover"
                         onError={() => setPhotoOk(false)}
                       />
                     ) : (
-                      <img src="Picture/irfan1.jpeg" alt="" />
+                      <img src={portfolio.profile.imageUrl || "/Picture/irfan1.jpeg"} alt="" />
                     )}
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-zinc-50">
-                      {portfolio.person.name}
+                      {portfolio.profile.name}
                     </p>
                     <p className="text-sm text-zinc-400">
-                      {portfolio.person.role}
+                      {portfolio.profile.role}
                     </p>
                   </div>
                 </div>

@@ -1,77 +1,28 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# Dynamic Portfolio CMS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React/Vite portfolio with a Netlify Functions backend and separate Netlify Blob stores.
 
-Currently, two official plugins are available:
+## Environment variables
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Configure these in Netlify Site configuration > Environment variables:
 
-## React Compiler
+- `ADMIN_USERNAME`: the only admin login username.
+- `ADMIN_PASSWORD_HASH`: bcrypt password hash. Generate one with `npx bcrypt` or:
+  `node -e "console.log(require('bcryptjs').hashSync('YOUR_PASSWORD',12))"`
+- `ADMIN_SESSION_SECRET`: long random value used to sign HttpOnly session cookies.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Blobs are enabled by Netlify automatically for linked Blob stores. The project uses:
 
-## Expanding the ESLint configuration
+- `portfolio-data` for JSON content
+- `portfolio-media` for profile images, project screenshots, certificates, and resumes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Netlify deployment
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Push the repository to GitHub.
+2. Add the project in Netlify and connect the GitHub repository.
+3. Keep the build command `npm run build`, publish directory `dist`, and functions directory `netlify/functions`.
+4. Set `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, and `ADMIN_SESSION_SECRET`.
+5. Deploy and open `https://your-site.netlify.app/admin/login`.
+6. After login, update content under `/admin`.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-=======
-# Portfolio1
->>>>>>> origin/master
+The public portfolio is automatically seeded once into `portfolio-data` when `/get-portfolio` is first requested. Existing Blob values are never overwritten by deployment. Uploaded files are validated and stored separately from JSON.
