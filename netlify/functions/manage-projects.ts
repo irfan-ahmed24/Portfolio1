@@ -1,4 +1,4 @@
-import { isSafeMutation, readJson, requireAdmin, response, writeJson } from './_shared'
+import { isSafeMutation, readJson, response, writeJson } from './_shared'
 
 interface ProjectInput {
   id?: string
@@ -16,7 +16,6 @@ interface ProjectInput {
 
 export default async (request: Request) => {
   if (!['POST', 'PUT', 'DELETE'].includes(request.method)) return response({ error: 'Method not allowed' }, 405)
-  if (!requireAdmin(request)) return response({ error: 'Unauthorized' }, 401)
   if (!isSafeMutation(request)) return response({ error: 'Invalid request origin' }, 403)
   const projects = await readJson<ProjectInput[]>('projects.json', [])
   if (request.method === 'DELETE') {

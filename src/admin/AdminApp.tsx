@@ -1,5 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { useEffect, useState, type ReactNode } from 'react'
 import type { MediaReference, PortfolioData, Project } from '../types/portfolio'
 
 const request = (url: string, options: RequestInit = {}) =>
@@ -12,50 +11,6 @@ async function api<T>(url: string, options: RequestInit = {}) {
   return body as T
 }
 
-function Login() {
-  const navigate = useNavigate()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [busy, setBusy] = useState(false)
-
-  async function submit(event: FormEvent) {
-    event.preventDefault()
-    setBusy(true)
-    setError('')
-    try {
-      await api<{ authenticated: boolean }>('/.netlify/functions/auth-login', {
-        method: 'POST',
-        body: JSON.stringify({ username, password }),
-      })
-      navigate('/admin', { replace: true })
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  return (
-    <main className="grid min-h-dvh place-items-center px-4">
-      <form onSubmit={submit} className="glass w-full max-w-md rounded-3xl p-6 ring-soft">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300">Portfolio CMS</p>
-        <h1 className="mt-2 text-2xl font-semibold text-zinc-50">Admin login</h1>
-        <div className="mt-6 grid gap-4">
-          <label className="grid gap-2 text-sm text-zinc-300">Username
-            <input value={username} onChange={(event) => setUsername(event.target.value)} required className="h-11 rounded-xl border border-white/10 bg-black/20 px-3 text-zinc-100 outline-none focus:border-indigo-400" />
-          </label>
-          <label className="grid gap-2 text-sm text-zinc-300">Password
-            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required className="h-11 rounded-xl border border-white/10 bg-black/20 px-3 text-zinc-100 outline-none focus:border-indigo-400" />
-          </label>
-          {error && <p className="rounded-xl border border-red-400/20 bg-red-400/10 px-3 py-2 text-sm text-red-200">{error}</p>}
-          <button disabled={busy} className="h-11 rounded-xl bg-indigo-500 font-medium text-white hover:bg-indigo-400 disabled:opacity-60">{busy ? 'Signing in...' : 'Sign in'}</button>
-        </div>
-      </form>
-    </main>
-  )
-}
-
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return <label className="grid gap-2 text-sm text-zinc-300">{label}{children}</label>
 }
@@ -63,7 +18,6 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 const inputClass = 'min-h-11 rounded-xl border border-white/10 bg-black/20 px-3 text-zinc-100 outline-none focus:border-indigo-400'
 
 function Dashboard() {
-  const navigate = useNavigate()
   const [data, setData] = useState<PortfolioData | null>(null)
   const [tab, setTab] = useState('Overview')
   const [error, setError] = useState('')
@@ -84,11 +38,6 @@ function Dashboard() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Save failed')
     }
-  }
-
-  async function logout() {
-    await api('/.netlify/functions/auth-logout', { method: 'POST' })
-    navigate('/admin/login', { replace: true })
   }
 
   async function upload(file: File, category: string): Promise<MediaReference> {
@@ -116,7 +65,7 @@ function Dashboard() {
       <div className="mx-auto max-w-6xl">
         <header className="flex items-center justify-between rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-3">
           <div><p className="text-xs text-indigo-300">CMS</p><p className="font-semibold text-zinc-50">{data.profile.name}</p></div>
-          <div className="flex gap-2"><a href="/" target="_blank" className="rounded-xl border border-white/10 px-3 py-2 text-sm text-zinc-200">View site</a><button onClick={logout} className="rounded-xl bg-white/10 px-3 py-2 text-sm text-zinc-100">Logout</button></div>
+          <div className="flex gap-2"><a href="/" target="_blank" className="rounded-xl border border-white/10 px-3 py-2 text-sm text-zinc-200">View site</a></div>
         </header>
         <div className="mt-5 grid gap-5 lg:grid-cols-[220px_1fr]">
           <nav className="glass h-fit rounded-2xl p-2 ring-soft">
@@ -233,20 +182,6 @@ function ProjectsEditor({ data, setData, setError, setNotice, upload }: { data: 
   </div>
 }
 
-function Protected() {
-  const [session, setSession] = useState<boolean | null>(null)
-  useEffect(() => {
-    fetch('/.netlify/functions/auth-session', { credentials: 'include' })
-      .then((response) => setSession(response.ok))
-      .catch(() => setSession(false))
-  }, [])
-  if (session === null) return <main className="grid min-h-dvh place-items-center text-zinc-400">Checking session...</main>
-  return session ? <Dashboard /> : <Navigate to="/admin/login" replace />
-}
-
 export function AdminApp() {
-  return <Routes>
-    <Route path="login" element={<Login />} />
-    <Route path="" element={<Protected />} />
-  </Routes>
+  return <Dashboard />
 }

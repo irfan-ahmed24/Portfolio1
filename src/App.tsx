@@ -38,6 +38,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<PublicPortfolio />} />
           <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="/irfan12/admin/*" element={<AdminApp />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

@@ -1,8 +1,7 @@
-import { isSafeMutation, requireAdmin, response, writeJson } from './_shared'
+import { isSafeMutation, response, writeJson } from './_shared'
 
 export default async (request: Request) => {
   if (!['PUT', 'POST'].includes(request.method)) return response({ error: 'Method not allowed' }, 405)
-  if (!requireAdmin(request)) return response({ error: 'Unauthorized' }, 401)
   if (!isSafeMutation(request)) return response({ error: 'Invalid request origin' }, 403)
   const url = new URL(request.url)
   const section = url.searchParams.get('section')

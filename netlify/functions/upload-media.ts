@@ -1,8 +1,7 @@
-import { isSafeMutation, mediaStore, requireAdmin, response } from './_shared'
+import { isSafeMutation, mediaStore, response } from './_shared'
 
 export default async (request: Request) => {
   if (request.method !== 'POST') return response({ error: 'Method not allowed' }, 405)
-  if (!requireAdmin(request)) return response({ error: 'Unauthorized' }, 401)
   if (!isSafeMutation(request)) return response({ error: 'Invalid request origin' }, 403)
   let form: FormData
   try { form = await request.formData() } catch { return response({ error: 'Invalid multipart form' }, 400) }
