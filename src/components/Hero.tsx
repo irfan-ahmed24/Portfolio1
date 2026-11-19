@@ -11,8 +11,8 @@ export function Hero() {
   const portfolio = data;
 
   useEffect(() => {
-    setPhotoOk(true)
-  }, [portfolio.profile.imageUrl])
+    setPhotoOk(true);
+  }, [portfolio.profile.imageUrl]);
 
   return (
     <section id="home" className="relative pt-28 sm:pt-32">
@@ -58,14 +58,20 @@ export function Hero() {
                 </a>
                 <div className="ml-1 flex items-center gap-2">
                   <a
-                    href={portfolio.socialLinks.find((link) => link.visible)?.href ?? "#"}
+                    href={
+                      portfolio.socialLinks.find((link) => link.visible)
+                        ?.href ?? "#"
+                    }
                     className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-100 transition hover:-translate-y-0.5 hover:bg-white/10"
                     aria-label="GitHub"
                   >
                     <FiGithub />
                   </a>
                   <a
-                    href={portfolio.socialLinks.filter((link) => link.visible)[1]?.href ?? "#"}
+                    href={
+                      portfolio.socialLinks.filter((link) => link.visible)[1]
+                        ?.href ?? "#"
+                    }
                     className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-100 transition hover:-translate-y-0.5 hover:bg-white/10"
                     aria-label="LinkedIn"
                   >
@@ -106,7 +112,12 @@ export function Hero() {
                         onError={() => setPhotoOk(false)}
                       />
                     ) : (
-                      <img src={portfolio.profile.imageUrl || "/Picture/profile.png"} alt="" />
+                      <img
+                        src={
+                          portfolio.profile.imageUrl || "/Picture/profile.png"
+                        }
+                        alt=""
+                      />
                     )}
                   </div>
                   <div>

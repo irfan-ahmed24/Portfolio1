@@ -55,7 +55,7 @@ export function Navbar() {
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/5 ring-soft">
               <img
                 src={`${portfolio.profile.imageUrl || "/Picture/profile.png"}${portfolio.profile.imageUrl?.includes("?") ? "&" : "?"}v=${encodeURIComponent(portfolio.profile.imageUrl || "fallback")}`}
-                alt={portfolio.profile.name}
+                alt="IA"
                 className="w-full h-full object-cover rounded-xl"
               />
             </span>
