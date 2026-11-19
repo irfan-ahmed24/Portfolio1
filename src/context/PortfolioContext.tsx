@@ -54,7 +54,14 @@ const fallback: PortfolioData = {
     subtitle: staticPortfolio.contact.subtitle,
     email: staticPortfolio.links.email,
   },
-  nav: staticPortfolio.nav.map((item) => ({ ...item })),
+  nav: [
+    ...staticPortfolio.nav.map((item) => ({ ...item })),
+    { label: 'Experience', href: '#experience' },
+    { label: 'Certificates', href: '#certificates' },
+  ].sort((a, b) => {
+    const order = ['#home', '#about', '#skills', '#projects', '#experience', '#certificates', '#contact']
+    return order.indexOf(a.href) - order.indexOf(b.href)
+  }),
 }
 
 export function PortfolioProvider({ children }: { children: ReactNode }) {

@@ -65,7 +65,13 @@ export function Navbar() {
           </a>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {portfolio.nav.map((item) => (
+            {portfolio.nav.filter((item) => {
+              if (item.href === '#skills') return portfolio.skills.length > 0
+              if (item.href === '#projects') return portfolio.projects.some((project) => project.visible)
+              if (item.href === '#experience') return portfolio.experience.length > 0
+              if (item.href === '#certificates') return portfolio.certificates.some((certificate) => certificate.visible)
+              return true
+            }).map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -84,14 +90,16 @@ export function Navbar() {
               <FiMail />
               Email
             </a>
-            <button
+            {portfolio.resume.fileUrl && (
+              <button
               type="button"
               onClick={() => openResume(portfolio)}
               className="inline-flex items-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
             >
               <FiDownload />
               Resume
-            </button>
+              </button>
+            )}
           </div>
 
           <button
@@ -133,7 +141,13 @@ export function Navbar() {
               </button>
             </div>
             <div className="mt-1 grid gap-1">
-              {portfolio.nav.map((item) => (
+              {portfolio.nav.filter((item) => {
+                if (item.href === '#skills') return portfolio.skills.length > 0
+                if (item.href === '#projects') return portfolio.projects.some((project) => project.visible)
+                if (item.href === '#experience') return portfolio.experience.length > 0
+                if (item.href === '#certificates') return portfolio.certificates.some((certificate) => certificate.visible !== false)
+                return true
+              }).map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -152,17 +166,19 @@ export function Navbar() {
                 <FiMail />
                 Email
               </a>
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false);
-                  openResume(portfolio);
-                }}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
-              >
-                <FiDownload />
-                Resume
-              </button>
+              {portfolio.resume.fileUrl && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openResume(portfolio);
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
+                >
+                  <FiDownload />
+                  Resume
+                </button>
+              )}
             </div>
           </motion.div>
         </motion.div>

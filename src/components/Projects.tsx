@@ -7,6 +7,8 @@ import { usePortfolio } from '../context/usePortfolio'
 
 export function Projects() {
   const { data: portfolio } = usePortfolio()
+  const projects = portfolio.projects.filter((p) => p.visible).sort((a, b) => a.order - b.order)
+  if (projects.length === 0) return null
   return (
     <Container>
       <Section
@@ -16,7 +18,7 @@ export function Projects() {
         subtitle="A few projects that show my taste for UI, performance, and clean code."
       >
         <div className="grid gap-5 lg:grid-cols-3">
-          {portfolio.projects.filter((p) => p.visible).sort((a, b) => a.order - b.order).map((p, idx) => (
+          {projects.map((p, idx) => (
             <Reveal key={p.title} delay={Math.min(0.35, idx * 0.06)}>
               <motion.article
                 whileHover={{ y: -6 }}

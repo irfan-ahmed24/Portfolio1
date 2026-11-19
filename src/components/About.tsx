@@ -60,22 +60,24 @@ export function About() {
                   </ul>
                 </div>
 
-                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-sm font-medium text-zinc-200">Education</p>
-                  <div className="mt-2 space-y-3">
-                    {portfolio.education.map((item) => (
-                      <div
-                        key={`${item.degree}-${item.institute}`}
-                        className="rounded-xl border border-white/10 bg-white/5 px-3 py-2"
-                      >
-                        <p className="text-sm font-semibold text-zinc-100">
-                          {item.degree} at {item.institute}
-                        </p>
-                        <p className="text-xs text-zinc-300">{item.period}</p>
-                      </div>
-                    ))}
+                {portfolio.education.length > 0 && (
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-sm font-medium text-zinc-200">Education</p>
+                    <div className="mt-2 space-y-3">
+                      {portfolio.education.map((item) => (
+                        <div
+                          key={item.id}
+                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2"
+                        >
+                          <p className="text-sm font-semibold text-zinc-100">
+                            {item.degree} at {item.institute}
+                          </p>
+                          <p className="text-xs text-zinc-300">{item.period}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </Reveal>
           </div>

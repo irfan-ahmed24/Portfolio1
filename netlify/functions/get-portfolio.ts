@@ -17,7 +17,7 @@ const seed = {
   resume: { title: 'Resume', fileUrl: undefined, fileName: undefined },
   socialLinks: [{ id: 'social-1', label: 'GitHub', href: 'https://github.com/irfan-ahmed24', visible: true }, { id: 'social-2', label: 'LinkedIn', href: 'https://www.linkedin.com/in/irfan-ahmed24', visible: true }],
   contact: { title: 'Let’s build something great', subtitle: 'Have a role, project, or idea? Send a message and I’ll reply quickly.', email: 'irfanahmed99989@gmail.com' },
-  nav: [{ label: 'Home', href: '#home' }, { label: 'About', href: '#about' }, { label: 'Skills', href: '#skills' }, { label: 'Projects', href: '#projects' }, { label: 'Contact', href: '#contact' }],
+  nav: [{ label: 'Home', href: '#home' }, { label: 'About', href: '#about' }, { label: 'Skills', href: '#skills' }, { label: 'Projects', href: '#projects' }, { label: 'Experience', href: '#experience' }, { label: 'Certificates', href: '#certificates' }, { label: 'Contact', href: '#contact' }],
 }
 
 const keys = ['profile', 'about', 'skills', 'education', 'experience', 'projects', 'certificates', 'resume', 'social-links', 'contact']

@@ -15,6 +15,7 @@ const levelStyles: Record<string, string> = {
 
 export function Skills() {
   const { data: portfolio } = usePortfolio()
+  if (portfolio.skills.length === 0) return null
   return (
     <Container>
       <Section
