@@ -10,7 +10,7 @@ function clamp01(n: number) {
 }
 
 export function Navbar() {
-  const { data: portfolio } = usePortfolio()
+  const { data: portfolio } = usePortfolio();
   const [open, setOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
@@ -54,8 +54,8 @@ export function Navbar() {
           >
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/5 ring-soft">
               <img
-                src="Picture/profile.png"
-                alt="IA"
+                src={`${portfolio.profile.imageUrl || "/Picture/profile.png"}${portfolio.profile.imageUrl?.includes("?") ? "&" : "?"}v=${encodeURIComponent(portfolio.profile.imageUrl || "fallback")}`}
+                alt={portfolio.profile.name}
                 className="w-full h-full object-cover rounded-xl"
               />
             </span>
@@ -65,21 +65,28 @@ export function Navbar() {
           </a>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {portfolio.nav.filter((item) => {
-              if (item.href === '#skills') return portfolio.skills.length > 0
-              if (item.href === '#projects') return portfolio.projects.some((project) => project.visible)
-              if (item.href === '#experience') return portfolio.experience.length > 0
-              if (item.href === '#certificates') return portfolio.certificates.some((certificate) => certificate.visible)
-              return true
-            }).map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-xl px-3 py-2 text-sm text-zinc-300 transition hover:bg-white/5 hover:text-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60"
-              >
-                {item.label}
-              </a>
-            ))}
+            {portfolio.nav
+              .filter((item) => {
+                if (item.href === "#skills") return portfolio.skills.length > 0;
+                if (item.href === "#projects")
+                  return portfolio.projects.some((project) => project.visible);
+                if (item.href === "#experience")
+                  return portfolio.experience.length > 0;
+                if (item.href === "#certificates")
+                  return portfolio.certificates.some(
+                    (certificate) => certificate.visible,
+                  );
+                return true;
+              })
+              .map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-xl px-3 py-2 text-sm text-zinc-300 transition hover:bg-white/5 hover:text-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60"
+                >
+                  {item.label}
+                </a>
+              ))}
           </nav>
 
           <div className="hidden items-center gap-2 md:flex">
@@ -92,12 +99,12 @@ export function Navbar() {
             </a>
             {portfolio.resume.fileUrl && (
               <button
-              type="button"
-              onClick={() => openResume(portfolio)}
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
-            >
-              <FiDownload />
-              Resume
+                type="button"
+                onClick={() => openResume(portfolio)}
+                className="inline-flex items-center gap-2 rounded-xl bg-indigo-500/90 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
+              >
+                <FiDownload />
+                Resume
               </button>
             )}
           </div>
@@ -141,22 +148,32 @@ export function Navbar() {
               </button>
             </div>
             <div className="mt-1 grid gap-1">
-              {portfolio.nav.filter((item) => {
-                if (item.href === '#skills') return portfolio.skills.length > 0
-                if (item.href === '#projects') return portfolio.projects.some((project) => project.visible)
-                if (item.href === '#experience') return portfolio.experience.length > 0
-                if (item.href === '#certificates') return portfolio.certificates.some((certificate) => certificate.visible !== false)
-                return true
-              }).map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm text-zinc-200 transition hover:bg-white/5"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {portfolio.nav
+                .filter((item) => {
+                  if (item.href === "#skills")
+                    return portfolio.skills.length > 0;
+                  if (item.href === "#projects")
+                    return portfolio.projects.some(
+                      (project) => project.visible,
+                    );
+                  if (item.href === "#experience")
+                    return portfolio.experience.length > 0;
+                  if (item.href === "#certificates")
+                    return portfolio.certificates.some(
+                      (certificate) => certificate.visible !== false,
+                    );
+                  return true;
+                })
+                .map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl px-3 py-3 text-sm text-zinc-200 transition hover:bg-white/5"
+                  >
+                    {item.label}
+                  </a>
+                ))}
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <a
