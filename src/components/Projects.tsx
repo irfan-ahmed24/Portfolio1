@@ -25,6 +25,28 @@ export function Projects() {
               >
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-indigo-500/10 via-transparent to-fuchsia-500/10 opacity-0 transition group-hover:opacity-100" />
                 <div className="relative">
+                  {p.screenshots[0] ? (
+                    <a
+                      href={p.liveUrl || p.githubUrl || '#'}
+                      target={p.liveUrl || p.githubUrl ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      className="block overflow-hidden rounded-2xl border border-white/10 bg-black/20"
+                      aria-label={`Preview ${p.title}`}
+                    >
+                      <img
+                        src={p.screenshots[0].url}
+                        alt={`${p.title} project preview`}
+                        className="aspect-video w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    </a>
+                  ) : (
+                    <div className="flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-indigo-500/20 via-zinc-950 to-fuchsia-500/20">
+                      <span className="text-4xl font-semibold text-white/10">
+                        {p.title.trim().charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="text-base font-semibold text-zinc-50">{p.title}</h3>
                     <div className="flex items-center gap-2">
