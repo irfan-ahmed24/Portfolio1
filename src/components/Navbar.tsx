@@ -54,7 +54,7 @@ export function Navbar() {
           >
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/5 ring-soft">
               <img
-                src="Picture/irfan1.jpeg"
+                src="Picture/profile.png"
                 alt="IA"
                 className="w-full h-full object-cover rounded-xl"
               />
