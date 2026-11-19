@@ -100,13 +100,13 @@ export function Hero() {
                   <div className="h-12 w-12 overflow-hidden rounded-2xl border border-white/10 bg-white/5 ring-soft">
                     {photoOk ? (
                       <img
-                        src={`${portfolio.profile.imageUrl || "/Picture/irfan2.jpeg"}${portfolio.profile.imageUrl?.includes("?") ? "&" : "?"}v=${encodeURIComponent(portfolio.profile.imageUrl || "fallback")}`}
+                        src={`${portfolio.profile.imageUrl || "/Picture/profile.png"}${portfolio.profile.imageUrl?.includes("?") ? "&" : "?"}v=${encodeURIComponent(portfolio.profile.imageUrl || "fallback")}`}
                         alt={portfolio.profile.name}
                         className="h-full w-full object-cover"
                         onError={() => setPhotoOk(false)}
                       />
                     ) : (
-                      <img src={portfolio.profile.imageUrl || "/Picture/irfan1.jpeg"} alt="" />
+                      <img src={portfolio.profile.imageUrl || "/Picture/profile.png"} alt="" />
                     )}
                   </div>
                   <div>
