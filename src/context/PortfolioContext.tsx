@@ -65,6 +65,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     const controller = new AbortController()
     fetch('/.netlify/functions/get-portfolio', {
       signal: controller.signal,
+      cache: 'no-store',
       headers: { Accept: 'application/json' },
     })
       .then((response) => (response.ok ? response.json() : Promise.reject()))

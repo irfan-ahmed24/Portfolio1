@@ -205,7 +205,9 @@ function resumeHtml(portfolio: PortfolioData) {
 
 export function openResume(portfolio: PortfolioData) {
   if (portfolio.resume.fileUrl) {
-    window.open(portfolio.resume.fileUrl, '_blank', 'noopener')
+    const separator = portfolio.resume.fileUrl.includes('?') ? '&' : '?'
+    const fileName = portfolio.resume.fileName ? `&filename=${encodeURIComponent(portfolio.resume.fileName)}` : ''
+    window.open(`${portfolio.resume.fileUrl}${separator}download=1${fileName}`, '_blank', 'noopener')
     return
   }
   const w = window.open('about:blank', '_blank');

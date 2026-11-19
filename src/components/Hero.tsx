@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FiArrowRight, FiGithub, FiLinkedin } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
 import { usePortfolio } from "../context/usePortfolio";
@@ -9,6 +9,10 @@ export function Hero() {
   const [photoOk, setPhotoOk] = useState(true);
   const { data } = usePortfolio();
   const portfolio = data;
+
+  useEffect(() => {
+    setPhotoOk(true)
+  }, [portfolio.profile.imageUrl])
 
   return (
     <section id="home" className="relative pt-28 sm:pt-32">
@@ -96,7 +100,7 @@ export function Hero() {
                   <div className="h-12 w-12 overflow-hidden rounded-2xl border border-white/10 bg-white/5 ring-soft">
                     {photoOk ? (
                       <img
-                        src={portfolio.profile.imageUrl || "/Picture/irfan2.jpeg"}
+                        src={`${portfolio.profile.imageUrl || "/Picture/irfan2.jpeg"}${portfolio.profile.imageUrl?.includes("?") ? "&" : "?"}v=${encodeURIComponent(portfolio.profile.imageUrl || "fallback")}`}
                         alt={portfolio.profile.name}
                         className="h-full w-full object-cover"
                         onError={() => setPhotoOk(false)}
